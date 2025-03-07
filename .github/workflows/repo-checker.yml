@@ -1,0 +1,32 @@
+name: "Repo Checker"
+on:
+  push:
+    paths:
+      - '**.sh'
+      - 'fb/frameiterator'
+      - 'frames/**'
+      - 'fb/**.ass'
+      - 'config.conf'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check-repo:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: "ownership check"
+        env:
+          trig_actor: ${{ github.triggering_actor }}
+          repo_ownr: ${{ github.repository_owner }}
+        run: |
+          case "${trig_actor}" in
+            "${repo_ownr}"|github-actions*) : ;;
+            *) printf '%s\n'"Runner prevented to run because the script is executed by an untrusted user \"${trig_actor}\". (Only owner can execute, for security)" >&2 ; exit 1 ;;
+          esac
+
+      - name: execute
+        env:
+          tok_fb: ${{ secrets.TOK_FB }}
+          tok_gif: ${{ secrets.TOK_GIF }}
+        run: bash checkermain.sh "${tok_fb}" "${tok_gif}" >> "${GITHUB_STEP_SUMMARY}"

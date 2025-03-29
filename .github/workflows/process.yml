@@ -55,6 +55,7 @@ jobs:
 
       - name: "initialize package"
         run: |
+          sudo apt-get clean
           sudo apt install imagemagick -y
 
       - name: "execute"

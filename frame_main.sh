@@ -25,4 +25,4 @@ time_ended="$(TZ="${FRMENV_SYS_TIMEZONE}" date)"
 if [[ "${desc_update}" == "1" ]]; then
     post_changedesc "${1}"
 fi
-bash img_process.sh "success" "${prev_frame}" "${lim_frame}" "${time_started}" "${time_ended}"
+#bash img_process.sh "success" "${prev_frame}" "${lim_frame}" "${time_started}" "${time_ended}"

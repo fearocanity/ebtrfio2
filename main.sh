@@ -107,7 +107,7 @@ if [[ "${rand_post}" = "1" ]]; then
 fi
 
 # Comment the Subtitles on a post created on timeline
-if [[ "${sub_posting}" = "1" ]]; then
+if [[ "${sub_posting}" = "1" ]] && [[ "${prev_frame}" != "3057" ]]; then
 	sleep "${delay_action}" # Delay
 	[[ "${BOOL_IS_EMPTY}" = "1" ]] || post_subs "${post_id}"
 fi

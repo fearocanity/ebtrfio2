@@ -37,6 +37,26 @@ post_fp(){
 	"${FRMENV_API_ORIGIN}/me/photos?access_token=${FRMENV_FBTOKEN}&published=1"
 }
 
+post_stories(){
+	TEMP_storiesid="$(curl -sLfX POST \
+		--retry 2 \
+		--retry-connrefused \
+		--retry-delay 7 \
+		-F "published=false"
+		-F "source=@${FRMENV_FRAME_LOCATION}/frame_${1}.jpg" \
+	"${FRMENV_API_ORIGIN}/me/photos?access_token=${FRMENV_FBTOKEN}" | \
+	jq -r .id)"
+	
+	curl -sLfX POST \
+		--retry 2 \
+		--retry-connrefused \
+		--retry-delay 7 \
+		-H "content-type: application/json"
+		-d '{"photo_id":"'"${TEMP_storiesid}"'","access_token":"'"${FRMENV_FBTOKEN}"'"}'
+	"https://graph.facebook.com/me/photo_stories"
+	unset TEMP_storiesid
+}
+
 post_album(){
 	curl -sfLX POST \
 		--retry 2 \

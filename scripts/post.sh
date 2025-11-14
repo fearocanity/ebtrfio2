@@ -42,7 +42,7 @@ post_stories(){
 		--retry 2 \
 		--retry-connrefused \
 		--retry-delay 7 \
-		-F "published=false"
+		-F "published=false" \
 		-F "source=@${FRMENV_FRAME_LOCATION}/frame_${1}.jpg" \
 	"${FRMENV_API_ORIGIN}/me/photos?access_token=${FRMENV_FBTOKEN}" | \
 	jq -r .id)"
@@ -51,8 +51,9 @@ post_stories(){
 		--retry 2 \
 		--retry-connrefused \
 		--retry-delay 7 \
-		-H "content-type: application/json"
-		-d '{"photo_id":"'"${TEMP_storiesid}"'","access_token":"'"${FRMENV_FBTOKEN}"'"}'
+		-H "content-type: application/json" \
+		-d '{"photo_id":"'"${TEMP_storiesid}"'","access_token":"'"${FRMENV_FBTOKEN}"'"}' \
+		-o /dev/null \
 	"https://graph.facebook.com/me/photo_stories"
 	unset TEMP_storiesid
 }

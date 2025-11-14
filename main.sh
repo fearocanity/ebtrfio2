@@ -107,7 +107,7 @@ if [[ "${rand_post}" = "1" ]]; then
 fi
 
 # Comment the Subtitles on a post created on timeline
-if [[ "${sub_posting}" = "1" ]] && (( prev_frame < 4018 || prev_frame > 4025 )); then
+if [[ "${sub_posting}" = "1" ]]; then
 	sleep "${delay_action}" # Delay
 	[[ "${BOOL_IS_EMPTY}" = "1" ]] || post_subs "${post_id}"
 fi
@@ -116,6 +116,12 @@ fi
 if [[ "${gif_post}" = "1" ]]; then
 	sleep "${delay_action}" # Delay
 	[[ -n "${giphy_token}" ]] && [[ "${prev_frame}" -gt "${gif_prev_framecount}" ]] && post_gif "$((prev_frame - gif_prev_framecount))" "${prev_frame}" "${post_id}"
+fi
+
+# Addons, Story post
+if [[ "${story_post}" = "1" ]]; then
+	sleep "${delay_action}" # Delay
+	post_stories "${prev_frame}"
 fi
 
 # This will note that the Post was success, without errors and append it to log file

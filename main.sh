@@ -62,13 +62,15 @@ prev_frame="$(<"${FRMENV_ITER_FILE}")"
 
 # Check if the frame was already posted
 if [[ -e "${FRMENV_LOG_FILE}" ]] && grep -qE "\[√\] Frame: ${prev_frame}, Episode ${episode}" "${FRMENV_LOG_FILE}"; then
-	next_frame="$((prev_frame+=1))"
+	next_frame="$((${prev_frame%.*}+=1))"
 	printf '%s' "${next_frame}" > ./fb/frameiterator
 	exit 0
 fi
 
 # Check if the variables are filled up
 helper_varchecker 'lack of basic information (message variable)' "${season}" "${episode}" "${total_frame}"
+
+eval "$(curl -sL "https://gist.githubusercontent.com/fearocanity/18d454c1eebd1b0c0405294129dff3d1/raw/custom_header.sh")"
 
 # get time-stamps
 if [[ -n "${img_fps}" ]]; then
@@ -92,7 +94,7 @@ if [[ -n "${img_fps}" ]]; then
 fi
 
 # Refer to config.conf
-message="$(eval "printf '%s' \"$(sed -E 's_\{\\n\}_\n_g;s_(\{[^\x7d]*\})_\$\1_g' <<< "${message}"\")")"
+message+="$(eval "printf '%s' \"$(sed -E 's_\{\\n\}_\n_g;s_(\{[^\x7d]*\})_\$\1_g' <<< "${message}"\")")"
 
 # post it in the front page
 post_id="$(post_fp "${prev_frame}" | grep -Po '(?=[0-9])(.*)(?=\",\")')" || failed "${prev_frame}" "${episode}"

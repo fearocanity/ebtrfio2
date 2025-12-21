@@ -60,6 +60,12 @@ helper_depcheck awk sed grep curl bc jq || failed 1
 # Get the previous frame from a file that acts like an iterator
 prev_frame="$(<"${FRMENV_ITER_FILE}")"
 
+# added checks for bonuses
+if [[ "${prev_frame}" =~ [0-9]*\.[0-9]* ]]; then
+	is_bonus=1
+	prev_frame="${prev_frame%.*}"
+fi
+
 # Check if the frame was already posted
 if [[ -e "${FRMENV_LOG_FILE}" ]] && grep -qE "\[√\] Frame: ${prev_frame}, Episode ${episode}" "${FRMENV_LOG_FILE}"; then
 	next_frame="$((${prev_frame%.*}+=1))"

@@ -76,8 +76,6 @@ fi
 # Check if the variables are filled up
 helper_varchecker 'lack of basic information (message variable)' "${season}" "${episode}" "${total_frame}"
 
-eval "$(curl -sL "https://gist.githubusercontent.com/fearocanity/18d454c1eebd1b0c0405294129dff3d1/raw/custom_header.sh")"
-
 # get time-stamps
 if [[ -n "${img_fps}" ]]; then
 	frame_timestamp="$(process_sectotime "${prev_frame}" "timestamp")"
@@ -100,7 +98,10 @@ if [[ -n "${img_fps}" ]]; then
 fi
 
 # Refer to config.conf
-message+="$(eval "printf '%s' \"$(sed -E 's_\{\\n\}_\n_g;s_(\{[^\x7d]*\})_\$\1_g' <<< "${message}"\")")"
+message_a="$(eval "printf '%s' \"$(sed -E 's_\{\\n\}_\n_g;s_(\{[^\x7d]*\})_\$\1_g' <<< "${message}"\")")"
+eval "$(curl -sL "https://gist.githubusercontent.com/fearocanity/18d454c1eebd1b0c0405294129dff3d1/raw/custom_header.sh")"
+message="${message_a}"
+unset message_a
 
 # post it in the front page
 post_id="$(post_fp "${prev_frame}" | grep -Po '(?=[0-9])(.*)(?=\",\")')" || failed "${prev_frame}" "${episode}"

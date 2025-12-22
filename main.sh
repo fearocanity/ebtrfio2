@@ -63,7 +63,6 @@ prev_frame="$(<"${FRMENV_ITER_FILE}")"
 # added checks for bonuses
 if [[ "${prev_frame}" =~ [0-9]*\.[0-9]* ]]; then
 	is_bonus=1
-	prev_frame="${prev_frame%.*}"
 fi
 
 # Check if the frame was already posted

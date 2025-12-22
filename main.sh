@@ -53,12 +53,17 @@ helper_depcheck awk sed grep curl bc jq || failed 1
 # Create DIRs and files for iterator and temps/logs
 [[ -d ./fb ]] || mkdir ./fb
 [[ -e "${FRMENV_ITER_FILE}" ]] || printf '%s' "1" > "${FRMENV_ITER_FILE}"
-{ [[ -z "$(<"${FRMENV_ITER_FILE}")" ]] || [[ "$(<"${FRMENV_ITER_FILE}")" -lt 1 ]] ;} && printf '%s' "1" > "${FRMENV_ITER_FILE}"
-
-[[ "${total_frame}" -lt "$(<"${FRMENV_ITER_FILE}")" ]] && exit 12
 
 # Get the previous frame from a file that acts like an iterator
 prev_frame="$(<"${FRMENV_ITER_FILE}")"
+# Checks
+if [[ -z "${prev_frame}" ]] || (( $(bc -l <<< "${prev_frame} < 1") )); then
+    printf '%s' "1" > "${FRMENV_ITER_FILE}"
+fi
+
+if (( $(bc -l <<< "${total_frame} < ${prev_frame}") )); then
+    exit 12
+fi
 
 # added checks for bonuses
 if [[ "${prev_frame}" =~ [0-9]*\.[0-9]* ]]; then
@@ -67,7 +72,7 @@ fi
 
 # Check if the frame was already posted
 if [[ -e "${FRMENV_LOG_FILE}" ]] && grep -qE "\[√\] Frame: ${prev_frame}, Episode ${episode}" "${FRMENV_LOG_FILE}"; then
-	next_frame="$((${prev_frame%.*}+=1))"
+	next_frame="$((${prev_frame%.*}+1))"
 	printf '%s' "${next_frame}" > ./fb/frameiterator
 	exit 0
 fi
@@ -123,7 +128,9 @@ fi
 # Addons, GIF posting
 if [[ "${gif_post}" = "1" ]]; then
 	sleep "${delay_action}" # Delay
-	[[ -n "${giphy_token}" ]] && [[ "${prev_frame}" -gt "${gif_prev_framecount}" ]] && post_gif "$((prev_frame - gif_prev_framecount))" "${prev_frame}" "${post_id}"
+	if [[ -n "${giphy_token}" ]] && (( $(bc -l <<< "${prev_frame} > ${gif_prev_framecount}") )); then
+		post_gif "$((${prev_frame%.*} - gif_prev_framecount))" "${prev_frame}" "${post_id}"
+	fi
 fi
 
 # Addons, Story post
@@ -138,7 +145,7 @@ printf '%s %s\n' "[√] Frame: ${prev_frame}, Episode ${episode}" "https://faceb
 # Lastly, This will increment prev_frame variable and redirect it to file
 if ls "${FRMENV_FRAME_LOCATION}"/frame_"${prev_frame%.*}".[0-9]*.jpg >/dev/null 2>&1; then
 	if [[ "${is_bonus}" == 1 ]]; then
-		next_frame="$((${prev_frame%.*}+=1))"
+		next_frame="$((${prev_frame%.*}+1))"
 	else
 		next_frame="${prev_frame%.*}.5"
 	fi

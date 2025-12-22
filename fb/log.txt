@@ -23085,8 +23085,3 @@
 [√] Frame: 3188, Episode 05 https://facebook.com/122172408854779225
 [√] Frame: 3189, Episode 05 https://facebook.com/122172409190779225
 [√] Frame: 3190, Episode 05 https://facebook.com/122172409508779225
-[√] Frame: 3191, Episode 05 https://facebook.com/122172409832779225
-[√] Frame: 3191, Episode 05 https://facebook.com/122172410228779225
-[√] Frame: 3192, Episode 05 https://facebook.com/122172410678779225
-[√] Frame: 3192, Episode 05 https://facebook.com/122172411026779225
-[√] Frame: 3193, Episode 05 https://facebook.com/122172411446779225

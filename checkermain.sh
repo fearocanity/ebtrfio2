@@ -59,7 +59,7 @@ frames_check(){
 	if ! [[ -e fb/frameiterator ]]; then
 		format_table "frameiterator" "$(format_err "File not found")" && err_state="1"
 		printf '\e[31mERROR\e[0m - %s\n' "File not found" >&2
-	elif grep -vEq '^[0-9]*$' fb/frameiterator; then
+	elif grep -vEq '^[0-9]*$|^[0-9]*\.[0-9]*$' fb/frameiterator; then
 		format_table "frameiterator" "$(format_err "Invalid format")" && err_state="1"
 		printf '\e[31mERROR\e[0m - %s\n' "Invalid format" >&2
 	else

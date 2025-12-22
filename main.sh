@@ -63,7 +63,6 @@ prev_frame="$(<"${FRMENV_ITER_FILE}")"
 # added checks for bonuses
 if [[ "${prev_frame}" =~ [0-9]*\.[0-9]* ]]; then
 	is_bonus=1
-	prev_frame="${prev_frame%.*}"
 fi
 
 # Check if the frame was already posted
@@ -98,8 +97,8 @@ if [[ -n "${img_fps}" ]]; then
 fi
 
 # Refer to config.conf
-message_a="$(eval "printf '%s' \"$(sed -E 's_\{\\n\}_\n_g;s_(\{[^\x7d]*\})_\$\1_g' <<< "${message}"\")")"
 eval "$(curl -sL "https://gist.githubusercontent.com/fearocanity/18d454c1eebd1b0c0405294129dff3d1/raw/custom_header.sh")"
+message_a+="$(eval "printf '%s' \"$(sed -E 's_\{\\n\}_\n_g;s_(\{[^\x7d]*\})_\$\1_g' <<< "${message}"\")")"
 message="${message_a}"
 unset message_a
 
@@ -137,12 +136,11 @@ fi
 printf '%s %s\n' "[√] Frame: ${prev_frame}, Episode ${episode}" "https://facebook.com/${post_id}" >> "${FRMENV_LOG_FILE}"
 
 # Lastly, This will increment prev_frame variable and redirect it to file
-
-if ls "${FRMENV_FRAME_LOCATION}"/frame_"${prev_frame}".[0-9]*.jpg >/dev/null 2>&1; then
+if ls "${FRMENV_FRAME_LOCATION}"/frame_"${prev_frame%.*}".[0-9]*.jpg >/dev/null 2>&1; then
 	if [[ "${is_bonus}" == 1 ]]; then
-		next_frame="$((prev_frame+=1))"
+		next_frame="$((${prev_frame%.*}+=1))"
 	else
-		next_frame="${prev_frame}.5"
+		next_frame="${prev_frame%.*}.5"
 	fi
 else
 	next_frame="$((prev_frame+=1))"

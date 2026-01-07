@@ -83,7 +83,19 @@ jobs:
         run: bash frame_main.sh "${tok_fb}" "${tok_gif}"
 
       - name: "commit changes"
-        uses: stefanzweifel/git-auto-commit-action@v5
+        continue-on-error: true
+        uses: stefanzweifel/git-auto-commit-action@v7
+        id: commit_changes
+        with:
+          commit_message: "stat: Posted!!"
+          repository: .
+          file_pattern: README.md fb/* main.sh counter*.txt frame_main.sh status/* scripts/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Retry commit manually if failed
+        if: ${{ steps.commit_changes.outcome == 'failure' }}
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "stat: Posted!!"
           repository: .

@@ -5515,3 +5515,12 @@
 [√] Frame: 4963, Episode 06 https://facebook.com/122184732596779225
 [√] Frame: 4964, Episode 06 https://facebook.com/122184733094779225
 [√] Frame: 4965, Episode 06 https://facebook.com/122184733490779225
+[√] Frame: 4966, Episode 06 https://facebook.com/122184745088779225
+[√] Frame: 4967, Episode 06 https://facebook.com/122184745418779225
+[√] Frame: 4968, Episode 06 https://facebook.com/122184745736779225
+[√] Frame: 4969, Episode 06 https://facebook.com/122184746102779225
+[√] Frame: 4970, Episode 06 https://facebook.com/122184746432779225
+[√] Frame: 4971, Episode 06 https://facebook.com/122184747110779225
+[√] Frame: 4972, Episode 06 https://facebook.com/122184747512779225
+[√] Frame: 4973, Episode 06 https://facebook.com/122184747908779225
+[√] Frame: 4974, Episode 06 https://facebook.com/122184748418779225

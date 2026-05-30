@@ -10474,3 +10474,17 @@
 [√] Frame: 4958, Episode 07 https://facebook.com/122195028584779225
 [√] Frame: 4959, Episode 07 https://facebook.com/122195029052779225
 [√] Frame: 4960, Episode 07 https://facebook.com/122195029460779225
+[√] Frame: 4961, Episode 07 https://facebook.com/122195039042779225
+[√] Frame: 4962, Episode 07 https://facebook.com/122195039354779225
+[√] Frame: 4963, Episode 07 https://facebook.com/122195039708779225
+[√] Frame: 4964, Episode 07 https://facebook.com/122195040020779225
+[√] Frame: 4965, Episode 07 https://facebook.com/122195040476779225
+[√] Frame: 4966, Episode 07 https://facebook.com/122195040866779225
+[√] Frame: 4967, Episode 07 https://facebook.com/122195041328779225
+[√] Frame: 4968, Episode 07 https://facebook.com/122195041658779225
+[√] Frame: 4969, Episode 07 https://facebook.com/122195042000779225
+[√] Frame: 4970, Episode 07 https://facebook.com/122195042360779225
+[√] Frame: 4971, Episode 07 https://facebook.com/122195042870779225
+[√] Frame: 4972, Episode 07 https://facebook.com/122195043266779225
+[√] Frame: 4973, Episode 07 https://facebook.com/122195043668779225
+[√] Frame: 4974, Episode 07 https://facebook.com/122195044082779225

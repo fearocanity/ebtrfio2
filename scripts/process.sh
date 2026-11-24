@@ -35,7 +35,7 @@ process_sectotime(){
 	helper_varchecker 'lack of information ("process_sectotime" function)' "${1}" "${frm_delay}" "${img_fps}"
 	# This code below is standard, without tweaks.
 	TEMP_SEC="$(bc -l <<< "scale=2; x = (${1} - ${frm_delay:-0}) / ${img_fps};"' if (length (x) == scale (x) && x != 0) { if (x < 0) print "-",0,-x else print 0,x } else print x')"
-	if [[ "${2}" = "timestamp" ]] || grep -qE '^-' <<< "${sec}"; then
+	if [[ "${2}" = "timestamp" ]] || grep -qE '^-' <<< "${TEMP_SEC}"; then
 		TEMP_SEC="$(bc -l <<< "scale=2; x = ${1} / ${img_fps};"' if (length (x) == scale (x) && x != 0) { if (x < 0) print "-",0,-x else print 0,x } else print x')"
 	fi
 	TEMP_SECFLOAT="${TEMP_SEC#*.}" TEMP_SEC="${TEMP_SEC%.*}" TEMP_SEC="${TEMP_SEC:-0}"
